@@ -18,7 +18,7 @@
                   </div>
                   <!-- Error message -->
                   <div
-                    class="alert alert-danger mt-3"
+                    class="alert alert-danger mt-3 "
                     *ngIf="error"
                     role="alert"
                   >
@@ -38,8 +38,9 @@
                         loginForm.controls['username'].invalid &&
                         loginForm.controls['username'].touched
                       "
+                      class="smaller-text"
                     >
-                      Usuário é obrigatório.
+                    <i class="bi bi-x-circle vermelho"></i> Usuário é obrigatório.
                     </div>
                   </div>
                   <!-- Password input -->
@@ -56,8 +57,9 @@
                         loginForm.controls['password'].invalid &&
                         loginForm.controls['password'].touched
                       "
+                      class="smaller-text"
                     >
-                      Senha é obrigatório.
+                    <i class="bi bi-x-circle vermelho"></i>  Senha é obrigatório.
                     </div>
                   </div>
                   <!-- Submit button -->

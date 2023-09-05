@@ -6,7 +6,8 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs';
+import { SistemasComponent } from '../sistemas/sistemas.component';
+import { PerfilComponent } from '../perfil/perfil.component';
 import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
@@ -27,4 +28,7 @@ export class HomeComponent implements OnInit {
   public listarUsuarios() {
     this.service.makeAuthenticatedGetRequest('usuarios/listar').subscribe();
   }
+
+
+  
 }

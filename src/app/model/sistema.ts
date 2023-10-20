@@ -1,7 +1,12 @@
-import { Roles } from './roles';
-
+import { STATUS } from '../enums/status'; 
+import { ROLES } from '../enums/roles'; 
 export interface Sistema {
-  id: number;
-  nome: String;
-  descricao: String;
+  id?: string;
+  nome?: string;
+  descricao?: string;
+  versao?: string;
+  atualizacao?: Date;
+  url?: string;
+  status?: STATUS;
+  role?:ROLES;
 }

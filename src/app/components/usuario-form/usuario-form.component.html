@@ -1,0 +1,173 @@
+<h2 mat-dialog-title>Dados do usuário</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="col-12">
+
+    <form [formGroup]="form">
+
+      <div *ngIf="success" class="error">
+        <div class="alert alert-success d-flex align-items-center mt-3" role="alert">
+          <div>
+            <strong><i class="bi bi-x-circle"></i> Sucesso!</strong> Os dados foram salvos.
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="msgerrordialog" class="error">
+        <div class="alert alert-danger d-flex align-items-center mt-3" role="alert">
+          <div>
+            <strong><i class="bi bi-x-circle"></i> Atenção</strong> {{msgerror}}
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="form.invalid && submitted && !success" class="error">
+        <div class="alert alert-danger d-flex align-items-center mt-3" role="alert">
+          <div>
+            <strong><i class="bi bi-x-circle"></i> Atenção</strong> Por favor, corrija os campos destacados em vermelho.
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-group mb-2 mt-3">
+        <label for="nome">Nome</label>
+        <input type="text" class="form-control form-control-sm" id="nome" formControlName="nome">
+        <div *ngIf="form.get('nome')?.hasError('required') && form.get('nome')?.touched" class="error">
+          O campo nome é obrigatório.
+        </div>
+      </div>
+
+      <div class="form-group mb-2">
+        <label for="email">Email</label>
+        <input type="email" class="form-control form-control-sm" id="email" formControlName="email">
+        <div *ngIf="form.get('email')?.hasError('required') && form.get('email')?.touched" class="error">
+          O campo email é obrigatório.
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group mb-2">
+            <label for="login">Login</label>
+            <input type="text" class="form-control form-control-sm" id="login" formControlName="login">
+            <div *ngIf="form.get('login')?.hasError('required') && form.get('login')?.touched" class="error">
+              O campo login é obrigatório.
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group mb-2">
+            <label for="senha">Senha</label>
+            <input type="password" class="form-control form-control-sm" id="senha" formControlName="senha">
+            <div *ngIf="form.get('senha')?.hasError('required') && form.get('senha')?.touched" class="error">
+              O campo senha é obrigatório.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group mb-2">
+            <label for="role">Perfil do Sistema Integrado</label>
+            <select class="form-select form-select-sm" id="role" formControlName="role">
+              <option value="">Selecione uma opção</option>
+              <option value="ADMIN">Adminstrador</option>
+              <option value="USER">Usuário</option>
+              <option value="GUEST">Convidado</option>
+            </select>
+            <div *ngIf="form.get('role')?.hasError('required') && form.get('role')?.touched" class="error">
+              O campo perfi de usuário é obrigatório.
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group mb-2">
+            <label for="status">Status</label>
+            <select class="form-select form-select-sm" id="status" formControlName="status">
+              <option value="">Selecione uma opção</option>
+              <option value="true">Ativo</option>
+              <option value="false">Desativado</option>
+            </select>
+            <div *ngIf="form.get('status')?.hasError('required') && form.get('status')?.touched" class="error">
+              O campo status é obrigatório.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group mb-2">
+            <label for="role_sistema">Perfil do sistema</label>
+            <select class="form-select form-select-sm" id="role_sistema" formControlName="role_sistema">
+              <option value="">Selecione uma opção</option>
+              <option value="ADMIN">Adminstrador</option>
+              <option value="USER">Usuário</option>
+              <option value="GUEST">Convidado</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-6 mt-4">
+          <div class="input-group input-group-sm mb-2">
+            <select class="form-select form-select-sm" id="sistema" formControlName="sistema">
+              <option value="">Sistemas</option>
+              <option value="true" *ngFor="let item of data.sistemas" [ngValue]="item">
+                {{ item.nome }}
+              </option>
+            </select>
+            <button class="btn btn-outline-secondary" (click)="adicionarSistema()" type="button"><i
+                class="bi bi-plus-circle"></i> Adicionar</button>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row" *ngIf="sistemasSelecionados.length > 0">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <table class="table table-sm table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Perfil</th>
+                    <th scope="col" class="text-center" style="width: 80px;">Status</th>
+                    <th scope="col" class="text-center" style="width: 30px;">Excluir</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr *ngFor="let item of sistemasSelecionados" class="align-middle">
+                    <th scope="row">{{item.nome}}</th>
+                    <th scope="row">{{item.role}}</th>
+                    <td class="text-center">{{item.status}}</td>
+                    <td class="text-center"><button class="btn  btn-sm btn-outline-danger"
+                        (click)="excluirSistema(item)" type="button"><i class="bi bi-trash2"></i></button>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div *ngIf="form.get('sistema')?.hasError('required') && form.get('sistema')?.touched" class="error">
+        O campo nome é obrigatório.
+      </div>
+      <small style="font-size: 12px;">*Todos os campos são obrigatórios</small>
+
+    </form>
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <div class="d-grid gap-2 d-md-block">
+    <button class="btn btn-secondary btn-sm botao" mat-dialog-close >Fechar</button>
+    <input type="submit" class="btn btn-primary btn-sm botao" value="Salvar" mat-dialog-close (click)="onSubmit()" aria-label="Salvar">
+  </div>
+</mat-dialog-actions>

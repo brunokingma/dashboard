@@ -1,10 +1,13 @@
+import { STATUS } from '../enums/status';
 import { Sistema } from './sistema';
 
 export interface Usuario {
-  id?: number;
-  nome?: String;
-  email?: String;
-  login?: String;
-  senha?: String;
-  acesso?: [Sistema];
+  id?: string;
+  nome?: string;
+  email?: string;
+  login?: string;
+  password?: string;
+  sistemas?: [Sistema];
+  status?:STATUS;
+  role?:string;
 }

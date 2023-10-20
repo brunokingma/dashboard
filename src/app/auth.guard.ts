@@ -15,11 +15,8 @@ export class AuthGuard {
     | boolean
     | UrlTree {
     if (this.authService.isAuthenticated()) {
-      console.log(0);
       return true;
     } else {
-      console.log(this.authService.isAuthenticated());
-
       return this.router.createUrlTree(['/login']);
     }
   }

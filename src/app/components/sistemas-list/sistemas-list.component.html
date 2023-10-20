@@ -1,0 +1,48 @@
+<div class="conteudoTopo">
+    <div class="conteudo">
+        <h2>Sistemas Integrados</h2>
+        <div class="menurapido">
+            <ul class="lista">
+                <li>Legendas Status:</li>
+                <li><span class="botao">Ativo <i class="bi bi-check2-circle verde"></i></span></li>
+                <li><span class="botao">Desativado <i class="bi bi-x-circle vermelho"></i></span></li>
+                <li><span class="botao">Permissões <i class="bi bi-lock laranja"></i></span></li>
+                <li><span class="botao">Manuteção <i class="bi  bi-cone-striped laranja"></i></span></li>
+                <li><span class="botao">Fora do Ar <i class="bi  bi-exclamation-circle vermelho"></i></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="listaSistemas mt-2">
+    <div *ngFor="let sistema of sistemaArray">
+        <div class="conteudoSistemas">
+            <div class="itemSistema">
+                <div class="iconLogo"> <img src="../../../assets/logo4.png" width="50" alt="" /></div>
+                <div class="iconTexto">
+                    <span class="darkgray">{{sistema.nome}}</span>
+                    <span class="lightGray tinytext"><i class="bi bi-lock laranja"></i>Acesso:{{usuario.role}}</span>
+                </div>
+                <div class="iconTexto">
+                    <span class="darkgray">Status</span>
+                    <span class="lightGray tinytext"><i class={{icons(sistema.status)}}></i> {{sistema.status}}</span>
+                </div>
+                <div class="iconTexto">
+                    <span class="darkgray">Vesão</span>
+                    <span class="lightGray tinytext"><i class="bi bi-git laranja"></i> {{sistema.versao}}</span>
+                </div>
+                <div class="iconTexto">
+                    <span class="darkgray">Última atualização</span>
+                    <span class="lightGray tinytext"><i class="bi  bi-clock verde"></i> {{datautil(sistema.atualizacao)}}</span>
+                </div>
+                <div class="iconTexto">
+                    <button type="button" class="btn btn-primary btn-sm " [disabled]="sistema.status !== 'ATIVO'" (click)="abrirURL(sistema.url)">Abrir sistema <i class="bi bi-rocket-takeoff"></i></button>
+                </div>
+            </div>
+        </div>
+      </div>
+    
+
+</div>

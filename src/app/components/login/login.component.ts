@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   error: boolean = false;
   loading: boolean = false;
   loginForm: FormGroup = new FormGroup({});
+  errorMsg:any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,15 +43,16 @@ export class LoginComponent implements OnInit {
     const username = this.loginForm.controls['username'].value;
     const password = this.loginForm.controls['password'].value;
 
+
     this.usuarioService.logar(username, password).subscribe({
       next: () => {
         this.router.navigate(['/home']);
         this.loading = false;
       },
       error: (error) => {
-        console.log(error);
-        this.error = true;
         this.loading = false;
+        this.error = true;
+        this.errorMsg = error;
       },
     });
   }

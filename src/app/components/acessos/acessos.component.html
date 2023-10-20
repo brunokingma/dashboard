@@ -1,0 +1,55 @@
+<div class="containerflex">
+    <div class="column first-column">
+        <div class="coluna">
+            <img src="../../../assets/logo3.png" width="25" alt="" />
+        </div>
+    </div>
+    <div class="second-column">
+        <div class="conteudoTopo">
+            <div class="conteudo">
+                <h2>Sistemas Integrados</h2>
+                <div class="menurapido">
+                    <ul class="lista">
+                        <li>Legendas Status:</li>
+                        <li><span class="botao">Ativo <i class="bi bi-check2-circle verde"></i></span></li>
+                        <li><span class="botao">Desativado <i class="bi bi-x-circle vermelho"></i></span></li>
+                        <li><span class="botao">Permissões <i class="bi bi-lock laranja"></i></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="listaUsuarios">
+            <div class="items">
+                <div class="listabotoes">
+                    <button class="btn btn-primary btn-sm" type="button"><i class="bi bi-plus-circle"></i> adicionar usuários</button>
+                </div>
+ 
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Permissões</th>
+                            <th scope="col">Sistemas</th>
+                            <th scope="col">Status</th>
+                            <th scope="col"  class="text-center">Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let usuario of usuarios">
+                        <tr>
+                            <th scope="row">{{usuario.nome}}</th>
+                            <td>{{usuario.nome}}</td>
+                            <td>{{usuario.nome}}</td>
+                            <td>{{usuario.status}}</td>
+                            <td  class="text-center" [width]="20">        <button class="btn btn-warning btn-sm" type="button"><i class="bi bi-pencil-square"></i> </button></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <div class=" third-column">
+        <app-perfil></app-perfil>
+    </div>

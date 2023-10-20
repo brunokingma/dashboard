@@ -6,14 +6,27 @@ import { AppComponent } from './components/app/app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
-import { SistemasComponent } from './components/sistemas/sistemas.component';
+import { SistemasListComponent } from './components/sistemas-list/sistemas-list.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { DialogComponent} from './components/dialog-component/dialog-component.component'; 
-import { MatButtonModule } from '@angular/material/button'; // Import MatButtonModule
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatButtonModule } from '@angular/material/button';
+import { UsuarioComponent } from './components/usuario/usuario.component';
+import { AcessosComponent } from './components/acessos/acessos.component';
+import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component';
+import { SistemaFormComponent } from './components/sistemas-form/sistemas-form.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { SistemasComponent } from './components/sistemas/sistemas.component';
+import { SistemasUserListComponent } from './components/sistemas-user-list/sistemas-user-list.component';
+import { PaginacaoComponent } from './components/paginacao/paginacao.component';
+import { BuscaComponent } from './components/busca/busca.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
+
+ 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HomeComponent, SistemasComponent, PerfilComponent, DialogComponent],
+  declarations: [AppComponent, LoginComponent, HomeComponent,SistemasComponent,SistemaFormComponent,SistemasUserListComponent, SistemasListComponent, PerfilComponent, UsuarioComponent, AcessosComponent, UsuarioFormComponent, PaginacaoComponent, BuscaComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -22,6 +35,9 @@ import { MatButtonModule } from '@angular/material/button'; // Import MatButtonM
     HttpClientModule,
     MatDialogModule,
     MatButtonModule,
+    MatSnackBarModule,
+    MatFormFieldModule,
+    BrowserAnimationsModule,
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent],

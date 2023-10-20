@@ -1,0 +1,12 @@
+<nav aria-label="paginacao">
+  <ul class="pagination pagination-sm  justify-content-end">
+    <li class="page-item" [class.disabled]="active === 1">
+      <span class="page-link" (click)="requestData(active > 1 ? active-1 : 1)">Anterior</span>
+    </li>
+    <li *ngFor="let i of numberToArray(totalPages)" class="page-item " [class.active]="active===i"><a class="page-link"
+        (click)="requestData(i)">{{i}}</a></li>
+    <li class="page-item" [class.disabled]="active === totalPages">
+      <a class="page-link" (click)="requestData(active < totalPages ? active+1 :totalPages)">Próxima</a>
+    </li>
+  </ul>
+</nav>

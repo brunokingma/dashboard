@@ -6,7 +6,7 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SistemasComponent } from '../sistemas/sistemas.component';
+import { SistemasListComponent } from '../sistemas-list/sistemas-list.component';
 import { PerfilComponent } from '../perfil/perfil.component';
 import { AuthService } from 'src/app/service/auth.service';
 
@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   loginForm: FormGroup = new FormGroup({});
 
   ngOnInit(): void {
-    this.listarUsuarios();
+  //  this.listarUsuarios();
   }
 
   public listarUsuarios() {

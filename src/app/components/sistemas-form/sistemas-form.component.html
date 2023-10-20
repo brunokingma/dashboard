@@ -1,0 +1,101 @@
+<h2 mat-dialog-title>Dados do sistema</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="col-12">
+
+    <form [formGroup]="form">
+
+      <div *ngIf="success" class="error">
+        <div class="alert alert-success d-flex align-items-center mt-3" role="alert">
+          <div>
+            <strong><i class="bi bi-x-circle"></i> Sucesso!</strong> Os dados foram salvos.
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="msgerrordialog" class="error">
+        <div class="alert alert-danger d-flex align-items-center mt-3" role="alert">
+          <div>
+            <strong><i class="bi bi-x-circle"></i> Atenção</strong> {{msgerror}}
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="form.invalid && submitted && !success" class="error">
+        <div class="alert alert-danger d-flex align-items-center mt-3" role="alert">
+          <div>
+            <strong><i class="bi bi-x-circle"></i> Atenção</strong> Por favor, corrija os campos destacados em vermelho.
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-group mb-2 mt-3">
+        <label for="nome">Nome</label>
+        <input type="text" class="form-control form-control-sm" id="nome" formControlName="nome">
+        <div *ngIf="form.get('nome')?.hasError('required') && form.get('nome')?.touched" class="error">
+          O campo nome é obrigatório.
+        </div>
+      </div>
+
+      <div class="form-group mb-2">
+        <label for="descricao">Descrição</label>
+        <textarea class="form-control form-control-sm" id="descricao" rows="4" formControlName="descricao" ></textarea>
+
+        <div *ngIf="form.get('descricao')?.hasError('required') && form.get('descricao')?.touched" class="error">
+          O campo descrição é obrigatório.
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="form-group mb-2">
+          <label for="url">URL</label>
+          <input type="text" class="form-control form-control-sm" id="url" formControlName="url">
+          <div *ngIf="form.get('url')?.hasError('required') && form.get('url')?.touched" class="error">
+            O campo url é obrigatório.
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+  
+        <div class="col-6">
+          <div class="form-group mb-2">
+            <label for="status">Status</label>
+            <select class="form-select form-select-sm" id="status" formControlName="status">
+              <option value="">Selecione uma opção</option>
+              <option value="ATIVO">ATIVO</option>
+              <option value="DESATIVADO">DESATIVADO</option>
+              <option value="MANUTENCAO">MANUTENCAO</option>
+              <option value="FORADOAR">FORADOAR</option>
+            </select>
+            <div *ngIf="form.get('status')?.hasError('required') && form.get('status')?.touched" class="error">
+              O campo status é obrigatório.
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-6">
+          <div class="form-group mb-2">
+            <label for="versao">Versão</label>
+            <input type="text" class="form-control form-control-sm" id="versao" formControlName="versao">
+            <div *ngIf="form.get('versao')?.hasError('required') && form.get('versao')?.touched" class="error">
+              O campo versão é obrigatório.
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <small style="font-size: 12px;">*Todos os campos são obrigatórios</small>
+
+    </form>
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <div class="d-grid gap-2 d-md-block">
+    <button class="btn btn-secondary btn-sm botao" mat-dialog-close>Fechar</button>
+    <input type="submit" class="btn btn-primary btn-sm botao" value="Salvar"  mat-dialog-close  (click)="onSubmit()" aria-label="Salvar">
+  </div>
+</mat-dialog-actions>

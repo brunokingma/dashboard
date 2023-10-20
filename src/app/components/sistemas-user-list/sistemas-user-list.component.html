@@ -1,0 +1,54 @@
+<div class="containerflex">
+    <div class="column first-column">
+        <div class="coluna">
+            <img src="../../../assets/logo3.png" width="25" alt="" />
+        </div>
+    </div>
+    <div class="second-column">
+        <div class="conteudoTopo">
+            <div class="conteudo">
+                <h2>Sistemas Integrados</h2>
+                <div class="menurapido">
+                    <ul class="lista">
+                        <li>Legendas Status:</li>
+                        <li><span class="botao">Ativo <i class="bi bi-check2-circle verde"></i></span></li>
+                        <li><span class="botao">Desativado <i class="bi bi-x-circle vermelho"></i></span></li>
+                        <li><span class="botao">Permissões <i class="bi bi-lock laranja"></i></span></li>
+                        <li><span class="botao">Manuteção <i class="bi  bi-cone-striped laranja"></i></span></li>
+                        <li><span class="botao">Fora do Ar <i class="bi  bi-exclamation-circle vermelho"></i></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="listaSistemas">
+
+            <div *ngFor="let sistema of sistemas">
+                <div class="conteudoSistemas">
+                    <div class="itemSistema">
+                        <div class="iconLogo"> <img src="../../../assets/logo4.png" width="50" alt="" /></div>
+                        <div class="iconTexto">
+                            <span class="darkgray">{{sistema.nome}}</span>
+                            <span class="lightGray tinytext"><i class="bi bi-git laranja"></i>
+                                Verão:{{sistema.versao}} <i class={{icons(sistema.status)}}></i>
+                                Status: {{sistema.status}}</span>
+                            <span class="lightGray tinytext"><i class="bi  bi-clock verde"></i>
+                                Última atualização: {{datautil(sistema.atualizacao)}} </span>
+
+                        </div>
+
+                        <div class="iconTextoDescricao">
+                            <span class="darkgray">Descrição</span>
+                            <span class="lightGray tinytext">{{sistema.descricao}}</span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+    <div class=" third-column">
+        <app-perfil></app-perfil>
+    </div>

@@ -29,6 +29,15 @@
       </div>
 
 
+
+      <div class="form-group mb-2 mt-3">
+        <label for="nome">IP</label>
+        <input type="text" class="form-control form-control-sm" id="ip" formControlName="ip">
+        <div *ngIf="form.get('nome')?.hasError('required') && form.get('ip')?.touched" class="error">
+          O campo ip é obrigatório.
+        </div>
+      </div>
+
       <div class="form-group mb-2 mt-3">
         <label for="nome">Nome</label>
         <input type="text" class="form-control form-control-sm" id="nome" formControlName="nome">

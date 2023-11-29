@@ -9,4 +9,5 @@ export interface Sistema {
   url?: string;
   status?: STATUS;
   role?:ROLES;
+  ip?:string;
 }

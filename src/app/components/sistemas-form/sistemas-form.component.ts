@@ -33,7 +33,9 @@ export class SistemaFormComponent {
       descricao: [sistemaData.descricao || '', [Validators.required]],
       status: [sistemaData.status || '', Validators.required],
       url: [sistemaData.url || '', Validators.required],
-      versao: [sistemaData.versao || '', Validators.required]
+      versao: [sistemaData.versao || '', Validators.required],
+      ip: [sistemaData.ip || '', Validators.required]
+
     });
 
     this.id = sistemaData.id || '';
@@ -114,7 +116,8 @@ export class SistemaFormComponent {
       descricao: formData.descricao,
       url: formData.url,
       versao: formData.versao,
-      status: formData.status
+      status: formData.status,
+      ip: formData.status
     };
   }
 

@@ -24,10 +24,8 @@ export class UsuarioService {
           }
         }),
         catchError((error) => {
-          if (error.error && error.error.errorMessage) {
-            return throwError(error.error.errorMessage);
-          }
-          return throwError('Ocorreu um erro: Serviço fora do ar.');        })
+          return throwError(() => new Error(error.error))
+             })
       );
 
     return loginObservable;

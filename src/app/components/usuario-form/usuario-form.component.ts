@@ -163,7 +163,7 @@ private updateUser(formData: any) {
 
       this.acessoService.update(acesso).subscribe(() => {
         this.form.reset();
-      //  this.success = true;
+        this.success = true;
       this.openSnackBar("Os dados foram atualizados com sucesso!", "Fechar", "custom-style-success");
 
         this.sistemasSelecionados = [];

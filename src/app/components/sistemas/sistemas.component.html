@@ -30,7 +30,6 @@
                         <tr>
                             <th scope="col">Nome</th>
                             <th scope="col">Descrição</th>
-                            <th scope="col">IP</th>
                             <th scope="col" class="text-center">Status</th>
                             <th scope="col" class="text-center">Editar</th>
                         </tr>
@@ -39,7 +38,6 @@
                         <tr class="align-middle">
                             <th scope="row">{{sistema.nome}}</th>
                             <td>{{sistema.descricao}}</td>
-                            <td>{{sistema.ip}}</td>
                             <td class="text-center">{{sistema.status}}</td>
                             <td  class="text-center" [width]="20"><button class="btn btn-warning btn-sm" type="button" (click)="editar(sistema)"><i class="bi bi-pencil-square"></i> </button></td>
                         </tr>

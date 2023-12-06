@@ -87,7 +87,7 @@ export class SistemaFormComponent {
         this.openSnackBar("Os dados foram salvos com sucesso!", "Fechar", "custom-style-success");
         this.form.reset();
         this.formSubmitted.emit();
-      //  this.success = true;
+        this.success = true;
       })
     } catch (error) {
       this.handleError(error);
@@ -103,7 +103,7 @@ export class SistemaFormComponent {
         this.id = "";
         this.form.reset();
         this.formSubmitted.emit(); // Emit event upon successful submission
-      //  this.success = true;
+        this.success = true;
       });
     } catch (error) {
       this.handleError(error);
@@ -117,7 +117,7 @@ export class SistemaFormComponent {
       url: formData.url,
       versao: formData.versao,
       status: formData.status,
-      ip: formData.status
+      ip: formData.ip
     };
   }
 

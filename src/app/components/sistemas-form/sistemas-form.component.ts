@@ -23,6 +23,7 @@ export class SistemaFormComponent {
   msgerror: any = "";
   msgerrordialog: boolean = false;
   id: string = "";
+  loading: boolean = false;
 
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { sistema: Sistema }, private snackbar: MatSnackBar, private formBuilder: FormBuilder, public sistemasService: SistemasService) {
@@ -64,6 +65,7 @@ export class SistemaFormComponent {
     this.submitted = true;
     this.msgerrordialog = false;
     this.success = false;
+    this.loading = true;
 
     if (this.form.invalid) {
       return;
@@ -88,6 +90,7 @@ export class SistemaFormComponent {
         this.form.reset();
         this.formSubmitted.emit();
         this.success = true;
+        this.loading = false;
       })
     } catch (error) {
       this.handleError(error);
@@ -104,6 +107,7 @@ export class SistemaFormComponent {
         this.form.reset();
         this.formSubmitted.emit(); // Emit event upon successful submission
         this.success = true;
+        this.loading = false;
       });
     } catch (error) {
       this.handleError(error);

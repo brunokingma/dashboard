@@ -17,7 +17,7 @@ export class SistemasService {
 
 
   buscar(termo: any, pagina: number): Observable<any> {
-    let tamanho = 30;
+    let tamanho = 8;
     let page = { size: tamanho, page: pagina, termo:termo }
     return this.service.makeAuthenticatedPostRequest('sistemas/buscarAllSistemaPaginacao', page);
   }
@@ -41,7 +41,7 @@ export class SistemasService {
   }
 
   pageList(pagina: number): Observable<any> {
-    let tamanho = 30;
+    let tamanho = 8;
     let page = { size: tamanho, page: pagina }
     return this.service.makeAuthenticatedPostRequest('sistemas/listarAllPaginacao', page);
   }

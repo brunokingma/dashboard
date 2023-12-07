@@ -3,47 +3,47 @@
         <i class="bi bi-box-arrow-right iconsMenuBranco" (click)="logout()"></i>
     </div>
 </div>
+<div class="bg">
+    <div class="data coluna ">
 
-<div class="data coluna ">
+        <div>
+            <span class="dataGrupo">
+                <span class="datames">{{mes}}</span>
+                <span class="dataano">{{ano}}</span>
+            </span>
 
-    <div>
-        <span class="dataGrupo">
-            <span class="datames">{{mes}}</span>
-            <span class="dataano">{{ano}}</span>
-        </span>
-
-        <span class="linha mt-2">
-            <span class="block">
-                <span class="circle blue">
-                    <i class="bi bi-check"></i>
+            <span class="linha mt-2">
+                <span class="block">
+                    <span class="circle blue">
+                        <i class="bi bi-check"></i>
+                    </span>
+                    <span class="tinytext">
+                        <b>{{ativo}}</b>
+                        <span class="lightGray"> Ativo </span>
+                    </span>
                 </span>
-                <span class="tinytext">
-                    <b>{{ativo}}</b>
-                    <span class="lightGray"> Ativo </span>
+                <span class="block">
+                    <span class="circle orange">
+                        <i class="bi bi-exclamation"></i>
+                    </span>
+                    <span class="tinytext">
+                        <b>{{manutecao}} </b>
+                        <span class="lightGray"> Manuteção </span>
+                    </span>
+                </span>
+                <span class="block">
+                    <span class="circle red">
+                        <i class="bi bi-x"></i>
+                    </span>
+                    <span class="tinytext">
+                        <b>{{desativado}}</b>
+                        <span class="lightGray"> Desativado</span>
+                    </span>
                 </span>
             </span>
-            <span class="block">
-                <span class="circle orange">
-                    <i class="bi bi-exclamation"></i>
-                </span>
-                <span class="tinytext">
-                    <b>{{manutecao}} </b>
-                    <span class="lightGray"> Manuteção </span>
-                </span>
-            </span>
-            <span class="block">
-                <span class="circle red">
-                    <i class="bi bi-x"></i>
-                </span>
-                <span class="tinytext">
-                    <b>{{desativado}}</b>
-                    <span class="lightGray"> Desativado</span>
-                </span>
-            </span>
-        </span>
 
+        </div>
     </div>
-
 </div>
 
 <div class="conteudoperfil">
@@ -68,12 +68,12 @@
             <hr>
             <button class="btn btn-primary custom-btn-size " type="button" (click)="openRedirect('home')"><i
                     class="bi bi-house"></i> Princípal</button>
-                    <button class="btn btn-success custom-btn-size " type="button" (click)="openRedirect('sistemauserlist')"><i
-                        class="bi bi-stack"></i> Sistemas</button>
-                <button  class="btn btn-secondary custom-btn-size " type="button" (click)="openRedirect('usuario')" *ngIf="role==='ADMIN'"><i
-                        class="bi bi-people"></i> Controle de usuários</button>
-                <button class="btn btn-secondary custom-btn-size " type="button" (click)="openRedirect('sistema')" *ngIf="role==='ADMIN'"><i
-                        class="bi bi-hdd-stack"></i> Controle de sistemas</button>
+            <button class="btn btn-success custom-btn-size " type="button" (click)="openRedirect('sistemauserlist')"><i
+                    class="bi bi-stack"></i> Sistemas</button>
+            <button class="btn btn-secondary custom-btn-size " type="button" (click)="openRedirect('usuario')"
+                *ngIf="role==='ADMIN'"><i class="bi bi-people"></i> Controle de usuários</button>
+            <button class="btn btn-secondary custom-btn-size " type="button" (click)="openRedirect('sistema')"
+                *ngIf="role==='ADMIN'"><i class="bi bi-hdd-stack"></i> Controle de sistemas</button>
         </div>
     </div>
 </div>

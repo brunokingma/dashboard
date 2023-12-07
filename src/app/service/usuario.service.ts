@@ -40,7 +40,7 @@ export class UsuarioService {
   }
 
   pageList(pagina: number): Observable<Usuario> {
-    let tamanho = 30;
+    let tamanho = 8;
     let page = {size:tamanho, page:pagina}
     return this.service.makeAuthenticatedPostRequest('usuarios/pageList', page);
   }

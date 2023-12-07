@@ -28,25 +28,26 @@ export class UsuarioFormComponent {
   sistemasSelecionados: Array<Sistema> = [];
   msgerror: any = "";
   msgerrordialog: boolean = false;
-  id:string="";
-  updatePassword:string = "" ;
+  id: string = "";
+  updatePassword: string = "";
+  loading: boolean = false;
 
 
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { sistemas: Array<Sistema>, acesso: Acesso }, private snackbar: MatSnackBar, private formBuilder: FormBuilder, private usuarioService: UsuarioService, private acessoService: AcessosService) {
-    const usuarioData = data.acesso ? data.acesso.usuario : {}; 
-    const sistemaData = data.acesso ? data.acesso.sistema : []; 
+    const usuarioData = data.acesso ? data.acesso.usuario : {};
+    const sistemaData = data.acesso ? data.acesso.sistema : [];
 
     this.form = this.formBuilder.group({
-        nome: [usuarioData.nome || '', Validators.required],
-        email: [usuarioData.email || '', [Validators.required, Validators.email]],
-        login: [usuarioData.login || '', Validators.required],
-        senha: ['' , usuarioData.password ? [] : Validators.required],
-        status: [usuarioData.status || '', Validators.required],
-        sistema: [""],
-        role: [usuarioData.role || '', Validators.required],
-        role_sistema: ['']
-       
+      nome: [usuarioData.nome || '', Validators.required],
+      email: [usuarioData.email || '', [Validators.required, Validators.email]],
+      login: [usuarioData.login || '', Validators.required],
+      senha: ['', usuarioData.password ? [] : Validators.required],
+      status: [usuarioData.status || '', Validators.required],
+      sistema: [""],
+      role: [usuarioData.role || '', Validators.required],
+      role_sistema: ['']
+
     });
     this.updatePassword = usuarioData.password || "";
     this.sistemasSelecionados = sistemaData || [];
@@ -61,15 +62,15 @@ export class UsuarioFormComponent {
   adicionarSistema() {
     if (this.form.value.sistema === "" || this.form.value.role_sistema === "") {
       return
-    } 
-    
+    }
+
     var sistema = this.form.value.sistema;
     sistema.role = this.form.value.role_sistema;
 
-  if (!this.sistemaExistente(this.sistemasSelecionados,sistema) ) {
+    if (!this.sistemaExistente(this.sistemasSelecionados, sistema)) {
       this.sistemasSelecionados.push(sistema);
     }
-    
+
   }
 
 
@@ -89,7 +90,7 @@ export class UsuarioFormComponent {
   }
 
   onSubmit() {
-
+    this.loading = true;
     Object.values(this.form.controls).forEach(control => {
       control.markAsTouched();
     });
@@ -104,105 +105,111 @@ export class UsuarioFormComponent {
 
     const formData = this.form.value;
 
-  if (this.id !== "") {
-    this.updateUser(formData);
-  } else {
-    this.addUser(formData);
+    if (this.id !== "") {
+      this.updateUser(formData);
+    } else {
+      this.addUser(formData);
+    }
   }
-}
 
 
 
-private addUser(formData: any) {
-  const newUser = this.createUserFromFormData(formData);
-  newUser.password = formData.senha;
-  try {
-    this.usuarioService.add(newUser).subscribe((user) => {
-      const acesso = {
-        usuario: user,
-        sistema: this.sistemasSelecionados
-      };
-      this.acessoService.add(acesso).subscribe(() => {
-        this.form.reset();
-      //  this.success = true;
-      this.openSnackBar("Os dados foram salvos com sucesso!", "Fechar", "custom-style-success");
+  private addUser(formData: any) {
+    const newUser = this.createUserFromFormData(formData);
+    newUser.password = formData.senha;
+    try {
+      this.usuarioService.add(newUser).subscribe((user) => {
+        const acesso = {
+          usuario: user,
+          sistema: this.sistemasSelecionados
+        };
+        this.acessoService.add(acesso).subscribe(() => {
+          this.form.reset();
+          this.success = true;
+          this.openSnackBar("Os dados foram salvos com sucesso!", "Fechar", "custom-style-success");
+          this.loading  = false;
+          this.sistemasSelecionados = [];
+          this.formSubmitted.emit();
 
-        this.sistemasSelecionados = [];
-        this.formSubmitted.emit();
-
+        }, (error) => {
+          this.handleError(error);
+          this.loading  = false;
+        });
       }, (error) => {
-        this.handleError(error);
+        this.handleError("Login já cadastrado no sistemas");
+        this.loading  = false;
       });
-    }, (error) => {
-      this.handleError("Login já cadastrado no sistemas");
-    });
-  } catch (error) {
-    this.handleError(error);
-  }
-}
-
-private updateUser(formData: any) {
-
-  const updatedUser = this.createUserFromFormData(formData);
-  if (formData.senha !== "") {
-    updatedUser.password = formData.senha;
-  }else{
-     updatedUser.password = "";
+    } catch (error) {
+      this.handleError(error);
+      this.loading  = false;
+    }
   }
 
-  updatedUser.id = this.id;
+  private updateUser(formData: any) {
 
-  try {
-    this.usuarioService.updateUsuario(updatedUser).subscribe((user) => {
+    const updatedUser = this.createUserFromFormData(formData);
+    if (formData.senha !== "") {
+      updatedUser.password = formData.senha;
+    } else {
+      updatedUser.password = "";
+    }
 
-      const acesso = {
-        id:this.data.acesso.id,
-        usuario: user,
-        sistema: this.sistemasSelecionados
-      };
+    updatedUser.id = this.id;
 
-      this.acessoService.update(acesso).subscribe(() => {
-        this.form.reset();
-        this.success = true;
-      this.openSnackBar("Os dados foram atualizados com sucesso!", "Fechar", "custom-style-success");
+    try {
+      this.usuarioService.updateUsuario(updatedUser).subscribe((user) => {
 
-        this.sistemasSelecionados = [];
-        this.formSubmitted.emit();
+        const acesso = {
+          id: this.data.acesso.id,
+          usuario: user,
+          sistema: this.sistemasSelecionados
+        };
 
-      }, (error: any) => {
-        this.handleError(error);
+        this.acessoService.update(acesso).subscribe(() => {
+          this.form.reset();
+          this.success = true;
+          this.openSnackBar("Os dados foram atualizados com sucesso!", "Fechar", "custom-style-success");
+
+          this.sistemasSelecionados = [];
+          this.formSubmitted.emit();
+          this.loading  = false;
+        }, (error: any) => {
+          this.loading  = false;
+          this.handleError(error);
+        });
+      }, (error) => {
+        this.handleError("Login já cadastrado no sistemas");
+        this.loading  = false;
       });
-    }, (error) => {
-      this.handleError("Login já cadastrado no sistemas");
-    });
-  } catch (error) {
-    this.handleError(error);
+    } catch (error) {
+      this.loading  = false;
+      this.handleError(error);
+    }
   }
-}
 
-private createUserFromFormData(formData: any): Usuario {
-  return {
-    nome: formData.nome,
-    email: formData.email,
-    login: formData.login,
-    status: formData.status,
-    role: formData.role,
-  };
-}
+  private createUserFromFormData(formData: any): Usuario {
+    return {
+      nome: formData.nome,
+      email: formData.email,
+      login: formData.login,
+      status: formData.status,
+      role: formData.role,
+    };
+  }
 
-openSnackBar(message: string, action: string, panelClass: string) {
-  this.snackbar.open(message, action,
-    {
-      duration: 3000,
-      panelClass: [panelClass] //custom-style-danger custom-style-success
-    });
-}
+  openSnackBar(message: string, action: string, panelClass: string) {
+    this.snackbar.open(message, action,
+      {
+        duration: 3000,
+        panelClass: [panelClass] //custom-style-danger custom-style-success
+      });
+  }
 
 
-private handleError(error: any) {
-  // this.msgerrordialog = true;
-  // this.msgerror = error;
-   this.openSnackBar(error, "Fechar", "custom-style-danger");
- }
+  private handleError(error: any) {
+    // this.msgerrordialog = true;
+    // this.msgerror = error;
+    this.openSnackBar(error, "Fechar", "custom-style-danger");
+  }
 
 }

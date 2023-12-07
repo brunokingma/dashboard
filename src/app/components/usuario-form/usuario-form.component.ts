@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef  } from '@angular/material/dialog';
 import { Sistema } from 'src/app/model/sistema';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Usuario } from 'src/app/model/usuario';
@@ -16,6 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 })
 export class UsuarioFormComponent {
+
 
   @Output() formSubmitted: EventEmitter<void> = new EventEmitter<void>();
 
@@ -34,7 +35,8 @@ export class UsuarioFormComponent {
 
 
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { sistemas: Array<Sistema>, acesso: Acesso }, private snackbar: MatSnackBar, private formBuilder: FormBuilder, private usuarioService: UsuarioService, private acessoService: AcessosService) {
+  constructor(    public dialogRef: MatDialogRef<UsuarioFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { sistemas: Array<Sistema>, acesso: Acesso }, private snackbar: MatSnackBar, private formBuilder: FormBuilder, private usuarioService: UsuarioService, private acessoService: AcessosService) {
     const usuarioData = data.acesso ? data.acesso.usuario : {};
     const sistemaData = data.acesso ? data.acesso.sistema : [];
 
@@ -42,7 +44,7 @@ export class UsuarioFormComponent {
       nome: [usuarioData.nome || '', Validators.required],
       email: [usuarioData.email || '', [Validators.required, Validators.email]],
       login: [usuarioData.login || '', Validators.required],
-      senha: ['', usuarioData.password ? [] : Validators.required],
+      senha: ['', usuarioData.password ? '': Validators.required],
       status: [usuarioData.status || '', Validators.required],
       sistema: [""],
       role: [usuarioData.role || '', Validators.required],
@@ -72,7 +74,10 @@ export class UsuarioFormComponent {
     }
 
   }
-
+  close(): void {
+    this.dialogRef.close();
+      window.location.reload()
+  }
 
   excluirSistema(sistema: Sistema) {
     var array: Array<Sistema> = this.sistemasSelecionados;
@@ -89,6 +94,11 @@ export class UsuarioFormComponent {
       window.location.reload()
   }
 
+  formReset() {
+    this.form.reset();
+  }
+
+
   onSubmit() {
     this.loading = true;
     Object.values(this.form.controls).forEach(control => {
@@ -100,6 +110,8 @@ export class UsuarioFormComponent {
     this.success = false;
 
     if (this.form.invalid) {
+      this.loading = false;
+
       return;
     }
 

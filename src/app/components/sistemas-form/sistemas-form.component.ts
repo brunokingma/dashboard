@@ -1,6 +1,6 @@
 import { Component, Inject, Output, EventEmitter  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA,MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Sistema } from 'src/app/model/sistema';
 import { Usuario } from 'src/app/model/usuario';
@@ -26,7 +26,7 @@ export class SistemaFormComponent {
   loading: boolean = false;
 
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { sistema: Sistema }, private snackbar: MatSnackBar, private formBuilder: FormBuilder, public sistemasService: SistemasService) {
+  constructor(public dialogRef: MatDialogRef<SistemaFormComponent>, @Inject(MAT_DIALOG_DATA) public data: { sistema: Sistema }, private snackbar: MatSnackBar, private formBuilder: FormBuilder, public sistemasService: SistemasService) {
     const sistemaData = data.sistema ? data.sistema : {};
 
     this.form = this.formBuilder.group({
@@ -42,6 +42,10 @@ export class SistemaFormComponent {
     this.id = sistemaData.id || '';
   }
 
+  close(): void {
+    this.dialogRef.close();
+      window.location.reload()
+  }
 
   openSnackBar(message: string, action: string, panelClass: string) {
     this.snackbar.open(message, action,

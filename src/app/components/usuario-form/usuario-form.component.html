@@ -167,12 +167,13 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <div class="d-grid gap-2 d-md-block">
-    <button class="btn btn-secondary btn-sm botao" mat-dialog-close >Fechar</button>
-    <button type="submit" class="btn btn-primary btn-sm botao" (click)="onSubmit()"  aria-label="Salvar" [disabled]="loading">
-    Salvar
-    <div class="spinner-border spinner-border-sm mt-1 ml-2" role="status" *ngIf="loading">
-      <span class="visually-hidden">Loading...</span>
-    </div>
+    <button class="btn btn-secondary btn-sm botao" (click)=" close()" >Fechar</button>
+    <button type="submit" class="btn btn-primary btn-sm botao" (click)="onSubmit()" aria-label="Salvar"
+      [disabled]="loading">
+      Salvar
+      <div class="spinner-border spinner-border-sm mt-1 ml-2" role="status" *ngIf="loading">
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </button>
   </div>
 </mat-dialog-actions>

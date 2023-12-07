@@ -34,12 +34,8 @@
                     <span class="lightGray tinytext"><i class="bi bi-git laranja"></i> {{sistema.versao}}</span>
                 </div>
                 <div class="iconTexto">
-                    <span class="darkgray">IP</span>
-                    <span class="lightGray tinytext"><i class="bi bi-git laranja"></i> {{sistema.ip}}</span>
-                </div>
-                <div class="iconTexto">
-                    <span class="darkgray">Última atualização</span>
-                    <span class="lightGray tinytext"><i class="bi  bi-clock verde"></i> {{datautil(sistema.atualizacao)}}</span>
+                    <span class="darkgray">URL</span>
+                    <span class="lightGray tinytext"><i class="bi  bi-browser-chrome "></i> {{sistema.url}}</span>
                 </div>
                 <div class="iconTexto">
                     <button type="button" class="btn btn-primary btn-sm " [disabled]="sistema.status !== 'ATIVO'" (click)="abrirURL(sistema.url)">Abrir sistema <i class="bi bi-rocket-takeoff"></i></button>

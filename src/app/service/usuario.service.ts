@@ -20,7 +20,7 @@ export class UsuarioService {
         tap((response) => {
           if (response) {
             localStorage.setItem('token', JSON.stringify(response));
-            this.createCookei(response);
+            this.createCookei(JSON.stringify(response));
             this.service.isAuthenticatedSubject.next(true);
           }
         }),

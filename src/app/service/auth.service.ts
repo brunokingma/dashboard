@@ -21,7 +21,16 @@ export class AuthService {
   private arrayErrosStatus = [401, 500, 503, 400]
   logout(): void {
     this.isAuthenticatedSubject.next(false);
+    this.deleteCookei();
     this.tokenSubject.next('');
+  }
+
+  private deleteCookei() {
+    const currentDate = new Date();
+    const pastDate = new Date(currentDate.getTime() - 60 * 60 * 1000); // One hour in the past
+    const pastDateString = pastDate.toUTCString();
+  
+    document.cookie = `token=; expires=${pastDateString}; path=/; Secure; SameSite=Strict`;
   }
 
   isAuthenticated(): boolean {

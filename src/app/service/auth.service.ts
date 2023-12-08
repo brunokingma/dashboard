@@ -18,7 +18,7 @@ export class AuthService {
   );
   private apiUrl = environment.apiUrl;
   constructor(private http: HttpClient, private router: Router) { }
-  private arrayErrosStatus = [401, 500, 503]
+  private arrayErrosStatus = [401, 500, 503, 400]
   logout(): void {
     this.isAuthenticatedSubject.next(false);
     this.tokenSubject.next('');
@@ -81,6 +81,8 @@ export class AuthService {
 
   private getAuthHeaders(): HttpHeaders {
     var localstorage = localStorage.getItem('token');
+    localstorage = this.cookeiReadToken();
+    
     var token = localstorage ? JSON.parse(localstorage).token : '';
     if (!token) {
       throw new Error('Token não encontrado.');
@@ -89,4 +91,20 @@ export class AuthService {
       Authorization: token,
     });
   }
+
+
+  private cookeiReadToken(): string {
+    const cookei = document.cookie;
+    let token = "";
+    if (cookei) {
+      const tokenCookie = cookei.split("; ").find(row => row.startsWith("token="));
+      if (tokenCookie) {
+        token = tokenCookie.split("=")[1];
+      }
+    }
+    return token;
+  }
+
+
+  
 }

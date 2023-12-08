@@ -20,6 +20,7 @@ export class UsuarioService {
         tap((response) => {
           if (response) {
             localStorage.setItem('token', JSON.stringify(response));
+            this.createCookei(response);
             this.service.isAuthenticatedSubject.next(true);
           }
         }),
@@ -49,4 +50,20 @@ export class UsuarioService {
   updateUsuario(usuario: Usuario): Observable<Usuario> {
     return this.service.makeAuthenticatedPostRequest('usuarios/update', usuario);
   }
+
+
+
+  private createCookei(token: string) {
+    const currentDate = new Date();
+    const expirationDate = new Date(currentDate.getTime() + 60 * 60 * 1000); // 1 hour in milliseconds
+    const expirationDateString = expirationDate.toUTCString();
+    document.cookie = `token=${token}; expires=${expirationDateString}; path=/`;
+  }
+
+
+
+  
+
+
+
 }

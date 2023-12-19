@@ -17,6 +17,13 @@
 
 
 <div class="listaSistemas mt-2">
+
+    <div class="d-flex justify-content-center" *ngIf="loadingScreen">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
     <div *ngFor="let sistema of sistemaArray">
         <div class="conteudoSistemas">
             <div class="itemSistema">

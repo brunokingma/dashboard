@@ -10,4 +10,5 @@ export interface Sistema {
   status?: STATUS;
   role?:ROLES;
   ip?:string;
+  key?:string;
 }

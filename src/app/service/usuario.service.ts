@@ -19,8 +19,9 @@ export class UsuarioService {
       .pipe(
         tap((response) => {
           if (response) {
-            localStorage.setItem('token', JSON.stringify(response));
-            this.createCookei(JSON.stringify(response));
+            const token = JSON.stringify(response);
+            localStorage.setItem('token', token);
+            this.createCookei(token);
             this.service.isAuthenticatedSubject.next(true);
           }
         }),

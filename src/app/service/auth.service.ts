@@ -89,11 +89,10 @@ export class AuthService {
   }
 
   private getAuthHeaders(): HttpHeaders {
-    var localstorage = localStorage.getItem('token');
-    localstorage = this.cookeiReadToken();
-    
+    var localstorage = localStorage.getItem('token');    
     var token = localstorage ? JSON.parse(localstorage).token : '';
     if (!token) {
+      this.router.navigate(['/login']);
       throw new Error('Token não encontrado.');
     }
     return new HttpHeaders({
@@ -102,17 +101,6 @@ export class AuthService {
   }
 
 
-  private cookeiReadToken(): string {
-    const cookei = document.cookie;
-    let token = "";
-    if (cookei) {
-      const tokenCookie = cookei.split("; ").find(row => row.startsWith("token="));
-      if (tokenCookie) {
-        token = tokenCookie.split("=")[1];
-      }
-    }
-    return token;
-  }
 
 
   

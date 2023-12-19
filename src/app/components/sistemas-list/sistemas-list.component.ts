@@ -14,8 +14,8 @@ export class SistemasListComponent implements OnInit {
   error: boolean;
   sistemaArray: any[];
   usuario!: Usuario;
-
-
+  token:any = window.localStorage.getItem("token");
+  loadingScreen: boolean = true;
   datautil(arg0: Date) {
     return datautil.dateFormat(arg0);
   }
@@ -48,7 +48,8 @@ export class SistemasListComponent implements OnInit {
 
   abrirURL(url: string) {
     if (url) {
-      window.open(url, '_blank');
+      const token =  window.localStorage.getItem("token");
+      window.open(url+"?token="+token, '_blank');
     }
   }
   
@@ -57,6 +58,7 @@ export class SistemasListComponent implements OnInit {
     this.acessosService.listar().subscribe((acesso: Acesso) => {
       this.sistemaArray = acesso.sistema;
       this.usuario = acesso.usuario;
+      this.loadingScreen = false;
     });
 
   }

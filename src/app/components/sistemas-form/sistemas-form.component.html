@@ -55,7 +55,9 @@
         </div>
       </div>
 
-      <div class="col-12">
+      <div class="row">
+
+      <div class="col-6">
         <div class="form-group mb-2">
           <label for="url">URL</label>
           <input type="text" class="form-control form-control-sm" id="url" formControlName="url">
@@ -63,6 +65,18 @@
             O campo url é obrigatório.
           </div>
         </div>
+      </div>
+
+      <div class="col-6">
+        <div class="form-group mb-2">
+          <label for="url">KEY</label>
+          <input type="text" class="form-control form-control-sm" id="key" formControlName="key">
+          <div *ngIf="form.get('key')?.hasError('required') && form.get('key')?.touched" class="error">
+            O campo key é obrigatório.
+          </div>
+        </div>
+      </div>
+
       </div>
 
       <div class="row">
